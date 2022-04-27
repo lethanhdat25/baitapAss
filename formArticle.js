@@ -13,13 +13,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (xhr.status === 200) {
                     var element = JSON.parse(xhr.responseText);
                     console.log(element);
-                    document.forms['article-form']['title'].value = element.id;
-                    document.forms['article-form']['description'].value = element.title;
-                    document.forms['article-form']['image'].value = element.description;
-                    document.forms['article-form']['category'].value = element.category;
-                    document.forms['article-form']['status'].value = element.status;
+                    document.forms['article-form']['name'].value = element.name;
+                    document.forms['article-form']['wage'].value = element.wage;
                 } else {
-                    alert('Khong the load tin tuc');
+                    alert('Khong the load.');
                 }
             }
         }
@@ -31,13 +28,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 const handleSubmit = () =>{
     const id = params.id;
-
-    const title = document.forms['article-form']['title'].value;
-    const description = document.forms['article-form']['description'].value;
-    const image = document.forms['article-form']['image'].value;
-    const category = document.forms['article-form']['category'].value;
-    const status = document.forms['article-form']['status'].value;
-    const data = JSON.stringify({id:parseInt(id),title,description,image,category,status})
+    const name = document.forms['article-form']['name'].value;
+    const wage = document.forms['article-form']['wage'].value;
+    const data = JSON.stringify({id:parseInt(id),name,wage})
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if(xhr.readyState === 4 && xhr.status === 200){
@@ -46,11 +39,11 @@ const handleSubmit = () =>{
         }
     };
     if (!id){
-        xhr.open('POST','http://localhost:8080/api/v1/article',false);
+        xhr.open('POST','http://localhost:8080/api/v1/employees',false);
         xhr.setRequestHeader("Content-Type", "application/json;charset = UTF-8");
         xhr.send(data);
     }else{
-        xhr.open('PUT','http://localhost:8080/api/v1/article/' + id,false);
+        xhr.open('PUT','http://localhost:8080/api/v1/employees/' + id,false);
         xhr.setRequestHeader("Content-Type", "application/json;charset = UTF-8");
         xhr.send(data);
     }
